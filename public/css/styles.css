@@ -1,6 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+/* Body Styles */
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-image: url("/images/site/checkerboard.jpg");
+  background-repeat: repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#wrapper {
+  margin: 2em;
+  max-height: fit-content;
+  background-color: white;
+  padding: 1em;
+  border-radius: 20px;
+  border: #3560bd 2px solid;
+}
+
+@media only screen and (max-width: 425px) {
+  #wrapper {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* Top Header */
+
+#top-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.siteName {
+  margin: 1em;
+}
+
+.siteName a {
+  text-decoration: none;
+  color: black;
+}
+
+#tools {
+  margin: 0 1em;
+}
+
+#tools a {
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+
+/* Navigation */
+
+nav {
+  background-color: #353535;
+  color: white;
+  padding: 0.75em;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  list-style-type: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  margin: 1em;
+  padding: 1em;
+  font-weight: 600;
+}
+
+/* Index */
+
+.car-background {
+  background-image: url("/images/vehicles/delorean-tn.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  display: grid;
+  grid-template-columns: 1fr 60%;
+}
+
+.hero-overlay {
+  margin: 2em;
+  padding: 1em;
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.733);
+}
+
+.hero-overlay h3 {
+  font-size: 1.5em;
+  color: #3560bd;
+}
+
+.hero-overlay p {
+  color: #3560bd;
+}
+
+.hero-overlay img {
+  max-width: 75%;
+}
+
+/* Body Content */
+
+.body-content {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.body-column {
+  max-width: 50%;
+}
+
+.upgrade-option {
+  text-align: center;
+}
+
+.upgrade-option img {
+  padding: 10px;
+}
+
+.upgrade-option div {
+  width: 150px;
+  height: 100px;
+  background-color: #8888d6;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.reviews ul li {
+  margin: 1em;
+  font-size: 1.3em;
 }
