@@ -11,6 +11,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const path = require("path")
+const baseController = require("./controllers/baseController");
 
 // View Engine and Templates
 app.set("view engine", "ejs")
@@ -23,10 +24,7 @@ app.set("layout", "layouts/layout")
  *************************/
 app.use(static)
 // Index Route
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" })
-})
-
+app.get("/", baseController.buildHome)
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
