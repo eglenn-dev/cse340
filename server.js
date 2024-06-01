@@ -24,7 +24,9 @@ app.set("layout", "layouts/layout")
  *************************/
 app.use(static)
 // Index Route
-app.get("/", baseController.buildHome)
+app.get("/", baseController.buildHome);
+// Inventory Route
+app.use("/inv", inventoryRoute);
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
