@@ -12,6 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const path = require("path")
 const baseController = require("./controllers/baseController");
+const inventoryRoute = require('./routes/inventoryRoute');
 
 // View Engine and Templates
 app.set("view engine", "ejs")
