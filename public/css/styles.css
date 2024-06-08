@@ -169,3 +169,45 @@ nav ul li a {
   margin: 1em;
   font-size: 1.3em;
 }
+
+/* Car Detail View */
+
+.vehicle-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-content: center;
+}
+
+.vehicle-detail h1 {
+  text-align: center;
+  margin-top: 1.5em;
+}
+
+.vehicle-detail img {
+  width: 100%;
+  max-width: 400px;
+}
+
+.vehicle-detail p {
+  max-width: 400px;
+}
+
+.saleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.saleGrid ul {
+  padding: 0;
+  margin-left: 1em;
+}
+
+@media screen and (max-width: 425px) {
+  .saleGrid {
+    grid-template-columns: 1fr;
+  }
+
+}
