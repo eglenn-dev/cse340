@@ -21,11 +21,20 @@ invCont.buildByInvId = async function (req, res, next) {
     const data = await invModel.getInventoryById(invId);
     const detailHTML = await utilities.buildInventoryDetail(data);
     let nav = await utilities.getNav();
-    res.render("./inventory/detail", {
-        title: `${data.inv_make} ${data.inv_model}`,
-        nav,
-        detailHTML,
-    });
+    try {
+        res.render("./inventory/detail", {
+            title: `${data.inv_make} ${data.inv_model}`,
+            nav,
+            detailHTML,
+        });
+    } catch (error) {
+        console.error(`Error at: "${req.originalUrl}" - Status: 404 - Message: ${error.message}`);
+        res.render("./errors/error", {
+            title: `Vehicle Not Found`,
+            nav,
+            message: `Vehicle with ID ${invId} not found.`
+        })
+    }
 }
 
 module.exports = invCont;

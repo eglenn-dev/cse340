@@ -205,6 +205,16 @@ nav ul li a {
   margin-left: 1em;
 }
 
+.home-button {
+  text-align: center;
+  padding: 0.5em 1em;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 425px) {
   .saleGrid {
     grid-template-columns: 1fr;

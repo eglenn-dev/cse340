@@ -33,6 +33,10 @@ async function getInventoryById(inv_id) {
             `,
             [inv_id]
         );
+        if (data.rows[0] === undefined) {
+            console.error("No matching vehicle found");
+            throw new Error("No matching vehicle found");
+        }
         return data.rows[0];
     } catch (error) {
         console.error("getInventoryById error " + error);

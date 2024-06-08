@@ -54,27 +54,34 @@ Util.buildClassificationGrid = async function (data) {
 
 // Add this function to utilities/index.js
 Util.buildInventoryDetail = async function (vehicle) {
-    let detailHTML = `<div class="vehicle-detail">`;
-    detailHTML += `<h1>${vehicle.inv_make} ${vehicle.inv_model} - ${vehicle.inv_year}</h1>`;
-    detailHTML += `<div class="saleGrid">`
-    detailHTML += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`;
-    detailHTML += `<div>`
-    detailHTML += `<p>${vehicle.inv_description}</p>`;
-    detailHTML += `<div>`
-    detailHTML += `<strong>Details:</strong>`
-    detailHTML += `<ul>`;
-    detailHTML += `<li><strong>Make:</string>${vehicle.inv_make}</li>`;
-    detailHTML += `<li><strong>Model:</string>${vehicle.inv_model}</li>`;
-    detailHTML += `<li><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</li>`;
-    detailHTML += `<li><strong>Color:</strong> ${vehicle.inv_color}</li>`;
-    detailHTML += `<li><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</li>`;
-    detailHTML += `<li><strong>Year:</strong> ${vehicle.inv_year}</li>`;
-    detailHTML += `</ul>`;
-    detailHTML += `</div>`
-    detailHTML += `</div>`
-    detailHTML += `</div>`
-    detailHTML += `</div>`;
-    return detailHTML;
+    try {
+        let detailHTML = `<div class="vehicle-detail">`;
+        detailHTML += `<h1>${vehicle.inv_make} ${vehicle.inv_model} - ${vehicle.inv_year}</h1>`;
+        detailHTML += `<div class="saleGrid">`
+        detailHTML += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`;
+        detailHTML += `<div>`
+        detailHTML += `<p>${vehicle.inv_description}</p>`;
+        detailHTML += `<div>`
+        detailHTML += `<strong>Details:</strong>`
+        detailHTML += `<ul>`;
+        detailHTML += `<li><strong>Make:</string>${vehicle.inv_make}</li>`;
+        detailHTML += `<li><strong>Model:</string>${vehicle.inv_model}</li>`;
+        detailHTML += `<li><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</li>`;
+        detailHTML += `<li><strong>Color:</strong> ${vehicle.inv_color}</li>`;
+        detailHTML += `<li><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</li>`;
+        detailHTML += `<li><strong>Year:</strong> ${vehicle.inv_year}</li>`;
+        detailHTML += `</ul>`;
+        detailHTML += `</div>`
+        detailHTML += `</div>`
+        detailHTML += `</div>`
+        detailHTML += `</div>`;
+        return detailHTML;
+    } catch (error) {
+        console.error("buildInventoryDetail error " + error);
+        return (`
+            <p class="notice">Sorry, no matching vehicles could be found.</p>    
+        `);
+    }
 }
 
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
