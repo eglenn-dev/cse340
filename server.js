@@ -17,6 +17,7 @@ const utilities = require('./utilities/');
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require('./routes/inventoryRoute');
 const { title } = require("process")
+const accountRoute = require('./routes/accountRoute');
 
 /* ***********************
  * Middleware
@@ -53,7 +54,9 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory Route
 app.use("/inv", inventoryRoute);
-
+// Account Route
+app.use("/account", accountRoute);
+// Error Route
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
