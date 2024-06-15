@@ -1,36 +1,46 @@
-<div class="login-area">
-    <div class="border-box">
-        <form class="login-form" action="/account/register" method="POST">
-            <div class="form-group">
-                <label for="account_firstname">First Name:</label>
-                <input type="text" id="account_firstname" name="account_firstname" required placeholder="John">
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } %>
+        <div class="login-area">
+            <div class="border-box">
+                <form class="login-form" action="/account/register" method="POST">
+                    <div class="form-group">
+                        <label for="account_firstname">First Name:</label>
+                        <input type="text" id="account_firstname" name="account_firstname" required placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="account_lastname">Last Name:</label>
+                        <input type="text" id="account_lastname" name="account_lastname" required placeholder="Smith">
+                    </div>
+                    <div class="form-group">
+                        <label for="account_email">Email:</label>
+                        <input type="email" id="account_email" name="account_email" required
+                            placeholder="Enter a valid email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountPassword">Password:</label>
+                        <input type="password" name="account_password" id="accountPassword" required
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                    </div>
+                    <button class="submit-button" type="submit">Register</button>
+                    <div class="password-message">
+                        Password:
+                        <ul>
+                            <li>Be 12 characters long</li>
+                            <li>Include at least 1 capital letter</li>
+                            <li>Include at least 1 number</li>
+                            <li>Include at least 1 special character</li>
+                        </ul>
+                    </div>
+                </form>
+                <p style="color: black; text-align: center;">Already have an account? <a href="/account/login">Login
+                        here</a>.
+                </p>
             </div>
-            <div class="form-group">
-                <label for="account_lastname">Last Name:</label>
-                <input type="text" id="account_lastname" name="account_lastname" required placeholder="Smith">
-            </div>
-            <div class="form-group">
-                <label for="account_email">Email:</label>
-                <input type="email" id="account_email" name="account_email" required
-                    placeholder="Enter a valid email address">
-            </div>
-            <div class="form-group">
-                <label for="accountPassword">Password:</label>
-                <input type="password" name="account_password" id="accountPassword" required
-                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-            </div>
-            <button class="submit-button" type="submit">Register</button>
-            <div class="password-message">
-                Password:
-                <ul>
-                    <li>Be 12 characters long</li>
-                    <li>Include at least 1 capital letter</li>
-                    <li>Include at least 1 number</li>
-                    <li>Include at least 1 special character</li>
-                </ul>
-            </div>
-        </form>
-        <p style="color: black; text-align: center;">Already have an account? <a href="/account/login">Login here</a>.
-        </p>
-    </div>
-</div>
+        </div>
