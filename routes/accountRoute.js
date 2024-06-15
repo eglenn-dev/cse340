@@ -6,6 +6,12 @@ const { validate } = require('../utilities/account-validation');
 
 // Assuming 'viewAccount' is the function to handle "My Account" page
 router.get("/login", accountController.buildLogin, utilities.handleErrors);
+router.post(
+    "/login",
+    (req, res) => {
+        res.status(200).send('login process')
+    }
+)
 router.get("/register", accountController.buildRegister, utilities.handleErrors);
 router.post(
     "/register",
