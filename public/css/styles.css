@@ -403,6 +403,7 @@ input:required:valid {
 }
 
 .management-options a {
+  text-decoration: none;
   color: black;
   padding: 1em;
   border: 1px solid black;
@@ -411,6 +412,43 @@ input:required:valid {
 }
 
 .management-options a:hover {
+  background-color: #3560bd;
+  color: white;
+}
+
+/* Add Classification View */
+
+.add-class-form {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  gap: 1em;
+}
+
+.add-class-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-class-form label input {
+  width: 200px;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.add-class-form button {
+  padding: 1em 1.5em;
+  border: 1px solid black;
+  border-radius: 20px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.add-class-form button:hover {
   background-color: #3560bd;
   color: white;
 }

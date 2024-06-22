@@ -1,0 +1,17 @@
+<!-- views/inventory/add-classification.ejs -->
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <%- messages() %>
+            <div>
+                <form class="add-class-form" action="/inv/add-classification" method="POST">
+                    <label for="classificationName">Classification Name
+                        <input type="text" id="classificationName" name="classification_name" pattern="^[A-Za-z0-9]+$"
+                            title="No spaces or special characters allowed" required>
+                    </label>
+                    <small>The classification name cannot contain spaces or special characters.</small>
+                    <button type="submit">Add Classification</button>
+                </form>
+            </div>

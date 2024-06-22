@@ -45,4 +45,25 @@ invCont.buildManagementView = async function (req, res, next) {
     });
 }
 
+invCont.buildAddClassificationView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("./inventory/add-classification", {
+        title: "Add Classification",
+        nav
+    });
+}
+
+invCont.addClassification = async (req, res, next) => {
+
+    const createResult = await invModel.insertClassification(req.body.classification_name);
+
+    if (createResult) {
+        req.flash("notice", "Classification added successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        req.flash("notice", "Sorry, there was an error adding the classification.");
+        res.status(500).redirect("/inv/add-classification");
+    }
+}
+
 module.exports = invCont;
