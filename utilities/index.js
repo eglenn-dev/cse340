@@ -6,16 +6,29 @@ Util.getNav = async function (req, res, next) {
     let list = "<ul>";
     list += '<li><a href="/" title="Home page">Home</a></li>';
     data.rows.forEach((row) => {
-        list += "<li>";
-        list +=
-            '<a href="/inv/type/' +
-            row.classification_id +
-            '" title="See our inventory of ' +
-            row.classification_name +
-            ' vehicles">' +
-            row.classification_name +
-            "</a>";
-        list += "</li>";
+        if (row.classification_name === "Sport") {
+            list += "<li class=\"sport\">";
+            list +=
+                '<a href="/inv/type/' +
+                row.classification_id +
+                '" title="See our inventory of ' +
+                row.classification_name +
+                ' vehicles">' +
+                row.classification_name +
+                "</a>";
+            list += "</li>"
+        } else {
+            list += "<li>";
+            list +=
+                '<a href="/inv/type/' +
+                row.classification_id +
+                '" title="See our inventory of ' +
+                row.classification_name +
+                ' vehicles">' +
+                row.classification_name +
+                "</a>";
+            list += "</li>"
+        }
     })
     list += "</ul>";
     return list;

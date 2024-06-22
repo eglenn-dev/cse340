@@ -27,6 +27,7 @@ body {
 }
 
 #wrapper {
+  max-width: 800px;
   margin: 2em;
   max-height: fit-content;
   background-color: white;
@@ -35,10 +36,14 @@ body {
   border: #3560bd 2px solid;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 700px) {
   #wrapper {
+    width: 100vw;
+    min-height: 100vh;
+    height: fit-content;
     margin: 0;
     border-radius: 0;
+    padding: 0;
     border: none;
   }
 }
@@ -99,22 +104,39 @@ nav ul li a {
   font-weight: 600;
 }
 
+@media only screen and (max-width: 700px) {
+
+  nav {
+    padding: 0.75 0;
+  }
+
+  nav ul li a {
+    margin: 0;
+    padding: 0;
+  }
+}
+
 /* Index */
 
+.index-title {
+  margin: 10px;
+}
+
 .car-background {
-  background-image: url("/images/vehicles/delorean-tn.jpg");
+  background-image: url("/images/vehicles/delorean.jpg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   height: 300px;
   display: grid;
   grid-template-columns: 1fr 60%;
+  max-width: 100vw;
 }
 
 .hero-overlay {
   margin: 2em;
   padding: 1em;
-  width: fit-content;
+  width: 300px;
   background-color: rgba(255, 255, 255, 0.733);
 }
 
@@ -128,21 +150,32 @@ nav ul li a {
 }
 
 .hero-overlay img {
-  max-width: 75%;
+  width: 75%;
+}
+
+@media only screen and (max-width: 700px) {
+
+  .car-background {
+    background-image: url("/images/vehicles/delorean-tn.jpg");
+
+  }
+
+  .hero-overlay {
+    margin: 1em;
+    padding: 0;
+    width: 200px;
+  }
 }
 
 /* Body Content */
 
 .body-content {
+  max-width: 100%;
   margin-top: 4em;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.body-column {
-  max-width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1;
+  gap: 1em;
 }
 
 .upgrade-option {
@@ -154,9 +187,10 @@ nav ul li a {
 }
 
 .upgrade-option div {
-  width: 150px;
+  width: 100%;
   height: 100px;
   background-color: #8888d6;
+  border: 2px solid black;
 }
 
 .upgrade-grid {
@@ -168,6 +202,44 @@ nav ul li a {
 .reviews ul li {
   margin: 1em;
   font-size: 1.3em;
+}
+
+@media only screen and (max-width: 700px) {
+  .body-content {
+    margin-top: 1em;
+    padding: 1em;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2;
+  }
+
+  .reviews ul li {
+    margin: 8px;
+    font-size: 1.1em;
+  }
+
+  #reviews {
+    grid-row: 1/2;
+  }
+
+  #upgrades {
+    grid-row: 2/3;
+  }
+
+  .body-column {
+    width: 100%;
+  }
+
+  .upgrade-option div {
+    width: 100%;
+  }
+
+  .upgrade-option p {
+    margin: 5px auto;
+  }
+
+  .upgrade-grid {
+    width: 100%;
+  }
 }
 
 /* Car Detail View */
@@ -187,11 +259,11 @@ nav ul li a {
 
 .vehicle-detail img {
   width: 100%;
-  max-width: 400px;
+  width: 300px;
 }
 
 .vehicle-detail p {
-  max-width: 400px;
+  width: 300px;
 }
 
 .saleGrid {
@@ -286,17 +358,6 @@ nav ul li a {
   max-width: 300px;
 }
 
-/* input:required:invalid,
-input:focus:invalid {
-  color: red;
-  font-weight: 600;
-}
-
-input:required:valid {
-  font-weight: 500;
-  color: #181818;
-} */
-
 input:required:invalid,
 input:focus:invalid {
   background-image: url('/images/invalid.png');
@@ -310,8 +371,16 @@ input:required:valid {
   background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 700px) {
   .saleGrid {
     grid-template-columns: 1fr;
+  }
+
+  .body-content {
+    flex-direction: column;
+  }
+
+  .sport {
+    display: none;
   }
 }
