@@ -384,3 +384,33 @@ input:required:valid {
     display: none;
   }
 }
+
+/* Management View */
+
+.management {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.management-options {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.management-options a {
+  color: black;
+  padding: 1em;
+  border: 1px solid black;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.management-options a:hover {
+  background-color: #3560bd;
+  color: white;
+}
