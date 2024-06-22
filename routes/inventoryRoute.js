@@ -13,6 +13,13 @@ router.post(
     validate.checkName,
     utilities.handleErrors(invController.addClassification)
 )
+router.get("/add-inventory", invController.buildAddInventoryView);
+router.post(
+    "/add-inventory",
+    validate.newVehicleRules(),
+    validate.checkNewVehicleData,
+    utilities.handleErrors(invController.addToInventory)
+);
 router.get("/", invController.buildManagementView);
 
 module.exports = router;

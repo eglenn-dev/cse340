@@ -1,0 +1,42 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <%- messages() %>
+            <div>
+                <form class="add-class-form" action="/inv/add-inventory" method="POST">
+                    <label for="vehicleMake">Vehicle Make
+                        <input type="text" id="vehicleMake" name="inv_make" required pattern="[A-Za-z0-9 ]+"
+                            value="<%= locals.inv_make %>">
+                    </label>
+                    <label for="vehicleModel">Vehicle Model
+                        <input type="text" id="vehicleModel" name="inv_model" required pattern="[A-Za-z0-9 ]+"
+                            value="<%= locals.inv_model %>">
+                    </label>
+                    <label for="vehicleYear">Vehicle Year
+                        <input type="number" id="vehicleYear" name="inv_year" min="1900" max="2099" step="1" required
+                            value="<%= locals.inv_year %>">
+                    </label>
+                    <label for="vehicleDescription">Vehicle Description
+                        <textarea id="vehicleDescription" name="inv_description" rows="4" required
+                            value="<%= locals.inv_description %>"></textarea>
+                    </label>
+                    <label for="vehiclePrice">Vehicle Price
+                        <input type="number" id="vehiclePrice" name="inv_price" step="0.01" min="0.01" required
+                            value="<%= locals.inv_price %>">
+                    </label>
+                    <label for="vehicleMileCount">Vehicle Mile Count
+                        <input type="number" id="vehicleMileCount" name="inv_miles" min="0" required
+                            value="<%= locals.inv_miles %>">
+                    </label>
+                    <label for="vehicleColor">Vehicle Color
+                        <input type="text" id="vehicleColor" name="inv_color" required pattern="[A-Za-z ]+"
+                            value="<%= locals.inv_color %>">
+                    </label>
+                    <label for="vehicleClassId">Classification ID
+                        <%- classifications %>
+                    </label>
+                    <button type="submit">Add Vehicle</button>
+                </form>
+            </div>

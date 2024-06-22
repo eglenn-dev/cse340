@@ -432,7 +432,8 @@ input:required:valid {
   flex-direction: column;
 }
 
-.add-class-form label input {
+.add-class-form label input,
+.add-class-form label select {
   width: 200px;
   padding: 0.5em;
   border-radius: 10px;

@@ -66,4 +66,42 @@ invCont.addClassification = async (req, res, next) => {
     }
 }
 
+invCont.buildAddInventoryView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    let classifications = await utilities.buildClassificationList();
+    res.render("./inventory/add-inventory", {
+        title: "New Vehicle Form",
+        nav,
+        classifications
+    });
+}
+
+invCont.addToInventory = async (req, res, next) => {
+    let nav = await utilities.getNav();
+    let classifications = await utilities.buildClassificationList();
+    const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body;
+
+    const createResult = await invModel.insertIntoInventory(inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id);
+
+    if (createResult) {
+        req.flash("notice", "Vehicle added successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        req.flash("notice", "Sorry, there was an error adding the vehicle.");
+        res.status(500).render("./inventory/add-inventory", {
+            title: "New Vehicle Form",
+            nav,
+            classifications,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        });
+    }
+}
+
 module.exports = invCont;
