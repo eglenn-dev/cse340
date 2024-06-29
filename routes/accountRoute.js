@@ -4,14 +4,9 @@ const accountController = require("../controllers/accountController");
 const utilities = require("../utilities/index");
 const { validate } = require('../utilities/account-validation');
 
-// Assuming 'viewAccount' is the function to handle "My Account" page
 router.get("/login", accountController.buildLogin, utilities.handleErrors);
-router.post(
-    "/login",
-    (req, res) => {
-        res.status(200).send('login process')
-    }
-)
+// router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
+router.post("/login", utilities.handleErrors(accountController.accountLogin))
 router.get("/register", accountController.buildRegister, utilities.handleErrors);
 router.post(
     "/register",
@@ -19,5 +14,6 @@ router.post(
     validate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
+router.get("/", accountController.buildLoggedIn, utilities.handleErrors);
 
 module.exports = router;

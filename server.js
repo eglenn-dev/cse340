@@ -19,6 +19,7 @@ const inventoryRoute = require('./routes/inventoryRoute');
 const { title } = require("process")
 const accountRoute = require('./routes/accountRoute');
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
@@ -49,6 +50,8 @@ app.set("layout", "layouts/layout");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
 
 /* ***********************
  * Routes
