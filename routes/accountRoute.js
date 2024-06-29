@@ -14,6 +14,6 @@ router.post(
     validate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
-router.get("/", accountController.buildLoggedIn, utilities.handleErrors);
+router.get("/", utilities.checkLogin, accountController.buildLoggedIn, utilities.handleErrors);
 
 module.exports = router;
