@@ -6,6 +6,7 @@ const { validate } = require("../utilities/inv-validation");
 
 router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:invId", invController.buildByInvId);
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 router.get("/add-classification", invController.buildAddClassificationView);
 router.post(
     "/add-classification",
