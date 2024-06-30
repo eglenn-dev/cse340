@@ -5,7 +5,7 @@
     <% } else { res.redirect('/') } %>
         <%- messages() %>
             <div>
-                <form class="add-class-form" action="/inv/update" method="POST">
+                <form id="updateForm" class="add-class-form" action="/inv/update" method="POST">
                     <label for="vehicleMake">Vehicle Make
                         <input type="text" id="vehicleMake" name="inv_make" required pattern="[A-Za-z0-9 ]+"
                             value="<%= locals.inv_make %>">
@@ -20,7 +20,7 @@
                     </label>
                     <label for="vehicleDescription">Vehicle Description
                         <textarea id="vehicleDescription" name="inv_description" rows="4" required
-                            value="<%= locals.inv_description %>"></textarea>
+                            value="<%= locals.inv_description %>"><%= inv_description %></textarea>
                     </label>
                     <label for="vehiclePrice">Vehicle Price
                         <input type="number" id="vehiclePrice" name="inv_price" step="0.01" min="0.01" required
@@ -37,6 +37,8 @@
                     <label for="vehicleClassId">Classification ID
                         <%- classifications %>
                     </label>
-                    <button type="submit">Update Vehicle</button>
+                    <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+                            <button disabled type="submit">Update Vehicle</button>
                 </form>
             </div>
+            <script src="../../js/inv-update.js"></script>

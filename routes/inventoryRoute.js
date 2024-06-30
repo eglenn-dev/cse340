@@ -10,6 +10,10 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 router.get("/add-classification", invController.buildAddClassificationView);
 router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditInventoryView));
 router.post(
+    "/update/",
+    validate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory));
+router.post(
     "/add-classification",
     validate.nameRules(),
     validate.checkName,

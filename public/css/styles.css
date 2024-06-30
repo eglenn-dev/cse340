@@ -453,3 +453,8 @@ input:required:valid {
   background-color: #3560bd;
   color: white;
 }
+
+#vehicleDescription {
+  width: 300px;
+  height: 150px;
+}
