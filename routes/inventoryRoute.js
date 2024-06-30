@@ -26,6 +26,8 @@ router.post(
     validate.checkNewVehicleData,
     utilities.handleErrors(invController.addToInventory)
 );
+router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteConfirmationView));
+router.post("/delete", utilities.handleErrors(invController.deleteInventoryItem));
 router.get("/", invController.buildManagementView);
 
 module.exports = router;
