@@ -146,6 +146,26 @@ Util.checkLogin = (req, res, next) => {
     }
 }
 
+Util.checkAccountType = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (error, decodedToken) {
+            if (error) {
+                req.flash("Error", "Please log in.");
+                return res.redirect("/account/login");
+            }
+            if (decodedToken.accountType === "Employee" || decodedToken.accountType === "Admin") {
+                next();
+            } else {
+                req.flash("Error", "Access denied. Insufficient permissions.");
+                return res.redirect("/account/login");
+            }
+        });
+    } else {
+        req.flash("Error", "Please log in.");
+        return res.redirect("/account/login");
+    }
+}
+
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 module.exports = Util;
