@@ -35,6 +35,66 @@ async function buildLoggedIn(req, res, next) {
     })
 }
 
+async function buildAccountUpdate(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+        title: "Update Account",
+        nav,
+    })
+}
+
+async function processAccountUpdate(req, res, next) {
+    let nav = await utilities.getNav()
+    const { account_firstname, account_lastname, account_email } = req.body
+
+    const updateResult = await accountModel.updateAccount(
+        req.user.account_id,
+        account_firstname,
+        account_lastname,
+        account_email
+    )
+
+    if (updateResult) {
+        req.flash("notice", "Account updated successfully.")
+        res.redirect("/account/")
+    } else {
+        req.flash("notice", "Failed to update account.")
+        res.redirect("/account/update")
+    }
+}
+
+async function processPasswordChange(req, res, next) {
+    let nav = await utilities.getNav()
+    const { current_password, new_password } = req.body
+
+    const accountData = await accountModel.getAccountById(req.user.account_id)
+    if (!accountData) {
+        req.flash("notice", "Account not found.")
+        res.redirect("/account/update")
+        return
+    }
+
+    try {
+        if (await bcrypt.compare(current_password, accountData.account_password)) {
+            const hashedPassword = await bcrypt.hashSync(new_password, 10)
+            const updateResult = await accountModel.updatePassword(req.user.account_id, hashedPassword)
+            if (updateResult) {
+                req.flash("notice", "Password changed successfully.")
+                res.redirect("/account/")
+            } else {
+                req.flash("notice", "Failed to change password.")
+                res.redirect("/account/update")
+            }
+        } else {
+            req.flash("notice", "Incorrect current password.")
+            res.redirect("/account/update")
+        }
+    } catch (error) {
+        req.flash("notice", "Failed to change password.")
+        res.redirect("/account/update")
+    }
+}
+
 /* ****************************************
 *  Process Registration
 * *************************************** */
@@ -109,4 +169,6 @@ async function accountLogin(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn }
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn, buildAccountUpdate, processAccountUpdate, processPasswordChange }
