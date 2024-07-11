@@ -45,10 +45,10 @@ async function buildAccountUpdate(req, res, next) {
 
 async function processAccountUpdate(req, res, next) {
     let nav = await utilities.getNav()
-    const { account_firstname, account_lastname, account_email } = req.body
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
 
-    const updateResult = await accountModel.updateAccount(
-        req.user.account_id,
+    const updateResult = await accountModel.updateAccountInfo(
+        account_id,
         account_firstname,
         account_lastname,
         account_email
@@ -56,16 +56,29 @@ async function processAccountUpdate(req, res, next) {
 
     if (updateResult) {
         req.flash("notice", "Account updated successfully.")
-        res.redirect("/account/")
+        console.log(updateResult);
+        res.locals.accountData = updateResult;
+        delete updateResult.account_password
+        const accessToken = jwt.sign(updateResult, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: 3600 * 1000,
+        })
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+        res.redirect("/account")
     } else {
         req.flash("notice", "Failed to update account.")
         res.redirect("/account/update")
     }
 }
 
+async function accountLogout(req, res, next) {
+    res.clearCookie("jwt")
+    req.flash("notice", "You have been logged out.")
+    res.redirect("/")
+}
+
 async function processPasswordChange(req, res, next) {
-    let nav = await utilities.getNav()
-    const { current_password, new_password } = req.body
+    const { current_password, new_password, account_id } = req.body
+    console.log(account_id);
 
     const accountData = await accountModel.getAccountById(req.user.account_id)
     if (!accountData) {
@@ -171,4 +184,4 @@ async function accountLogin(req, res) {
 
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn, buildAccountUpdate, processAccountUpdate, processPasswordChange }
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn, buildAccountUpdate, processAccountUpdate, processPasswordChange, accountLogout }

@@ -54,9 +54,6 @@ validate.registrationRules = () => {
     ]
 }
 
-/* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
 validate.checkRegData = async (req, res, next) => {
     const { account_firstname, account_lastname, account_email } = req.body
     let errors = []
@@ -76,7 +73,9 @@ validate.checkRegData = async (req, res, next) => {
     next()
 }
 
-validate.updateAccountRules = () => {
+validate.updateAccountRules = (req, res, next) => {
+    console.log("Made it to updateAccountRules")
+    console.log(req);
     return [
         body("account_firstname")
             .trim()
@@ -98,7 +97,7 @@ validate.updateAccountRules = () => {
             .withMessage("A valid email is required.")
             .custom(async (account_email, { req }) => {
                 const emailExists = await accountModel.checkExistingEmail(account_email)
-                if (emailExists && account_email !== req.user.email) {
+                if (emailExists && account_email !== req.body.account_email) {
                     throw new Error("Email exists. Please use a different email")
                 }
             }),
@@ -156,18 +155,16 @@ validate.checkUpdateData = async (req, res, next) => {
 };
 
 validate.checkPasswordUpdateData = async (req, res, next) => {
-    const { current_password, new_password, confirm_password } = req.body;
+    // const { current_password, new_password, confirm_password } = req.body;
     let errors = [];
     errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.error(errors);
         let nav = await utilities.getNav();
-        res.render("account/password-update", {
+        res.render("account/update", {
             errors,
             title: "Update Password",
             nav,
-            current_password,
-            new_password,
-            confirm_password,
         });
         return;
     }
