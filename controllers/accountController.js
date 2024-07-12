@@ -80,7 +80,7 @@ async function processPasswordChange(req, res, next) {
     const { current_password, new_password, account_id } = req.body
     console.log(account_id);
 
-    const accountData = await accountModel.getAccountById(req.user.account_id)
+    const accountData = await accountModel.getAccountById(account_id)
     if (!accountData) {
         req.flash("notice", "Account not found.")
         res.redirect("/account/update")
@@ -90,7 +90,7 @@ async function processPasswordChange(req, res, next) {
     try {
         if (await bcrypt.compare(current_password, accountData.account_password)) {
             const hashedPassword = await bcrypt.hashSync(new_password, 10)
-            const updateResult = await accountModel.updatePassword(req.user.account_id, hashedPassword)
+            const updateResult = await accountModel.updatePassword(account_id, hashedPassword)
             if (updateResult) {
                 req.flash("notice", "Password changed successfully.")
                 res.redirect("/account/")

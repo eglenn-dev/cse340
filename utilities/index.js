@@ -153,7 +153,7 @@ Util.checkAccountType = (req, res, next) => {
                 req.flash("Error", "Please log in.");
                 return res.redirect("/account/login");
             }
-            if (decodedToken.accountType === "Employee" || decodedToken.accountType === "Admin") {
+            if (decodedToken.account_type === "Employee" || decodedToken.account_type === "Admin") {
                 next();
             } else {
                 req.flash("Error", "Access denied. Insufficient permissions.");

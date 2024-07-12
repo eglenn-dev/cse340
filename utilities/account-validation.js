@@ -74,8 +74,6 @@ validate.checkRegData = async (req, res, next) => {
 }
 
 validate.updateAccountRules = (req, res, next) => {
-    console.log("Made it to updateAccountRules")
-    console.log(req);
     return [
         body("account_firstname")
             .trim()
@@ -155,7 +153,7 @@ validate.checkUpdateData = async (req, res, next) => {
 };
 
 validate.checkPasswordUpdateData = async (req, res, next) => {
-    // const { current_password, new_password, confirm_password } = req.body;
+    const { current_password, new_password, confirm_password } = req.body;
     let errors = [];
     errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -3,7 +3,6 @@ const { body, validationResult } = require("express-validator")
 const validate = {}
 
 validate.nameRules = () => {
-    console.log("Made it to nameRules()")
     return [
         body("classification_name")
             .trim()
