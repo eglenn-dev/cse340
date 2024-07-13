@@ -4,12 +4,18 @@
     </h1>
     <% } else { res.redirect('/') } %>
         <%- messages() %>
-            <div>
-                <h2>Welcome <%= locals.accountData.account_firstname %>
-                </h2>
-                <a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a>
-                <% if (['Employee', 'Admin' ].includes(locals.accountData.account_type)) { %>
-                    <h3>Inventory Management</h3>
-                    <p><a href="/inv">Access Inventory Management</a></p>
+            <% if (!['Client'].includes(locals.accountData.account_type)) { %>
+                <div>
+                    <h2>Welcome <%= locals.accountData.account_firstname %>
+                    </h2>
+                    <a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a>
+                    <% if (['Employee', 'Admin' ].includes(locals.accountData.account_type)) { %>
+                        <h3>Inventory Management</h3>
+                        <p><a href="/inv">Access Inventory Management</a></p>
+                        <% } %>
+                </div>
+                <% } else { %>
+                    <div>
+                        <a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a>
+                    </div>
                     <% } %>
-            </div>
