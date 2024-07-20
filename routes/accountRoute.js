@@ -14,6 +14,7 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 )
 router.get('/update-review/:id', validate.checkUserUpdatePermissions, accountController.buildUpdateReview, utilities.handleErrors);
+router.get('/delete-review/:id', validate.checkUserUpdatePermissions, utilities.handleErrors(accountController.processDeleteReview));
 router.post('/update-review', validate.checkUserReviewUpdate, utilities.handleErrors(accountController.processUpdateReview));
 router.get('/update/:id', accountController.buildAccountUpdate, utilities.handleErrors);
 router.post("/update", validate.updateAccountRules(), validate.checkUpdateData, utilities.handleErrors(accountController.processAccountUpdate));

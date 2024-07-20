@@ -1,6 +1,7 @@
 const utilities = require("../utilities/");
 const accountModel = require("../models/account-model");
 const invModel = require("../models/inventory-model");
+const reviewModel = require("../models/review-model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -189,7 +190,7 @@ async function accountLogin(req, res) {
 async function buildUpdateReview(req, res, next) {
     let nav = await utilities.getNav()
     const { id } = req.params
-    const reviewData = await accountModel.getReviewById(id)
+    const reviewData = await reviewModel.getReviewById(id)
     const inventoryData = await invModel.getInventoryById(reviewData.inv_id)
     res.render("account/update-review", {
         title: "Update Review",
@@ -201,7 +202,7 @@ async function buildUpdateReview(req, res, next) {
 
 async function processUpdateReview(req, res, next) {
     const { review_id, review_text, review_rating } = req.body
-    const updateResult = await accountModel.updateReview(review_id, review_text, review_rating)
+    const updateResult = await reviewModel.updateReview(review_id, review_text, review_rating)
     if (updateResult) {
         req.flash("notice", "Review updated successfully.")
         res.redirect("/account/")
@@ -211,4 +212,16 @@ async function processUpdateReview(req, res, next) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn, buildAccountUpdate, processAccountUpdate, processPasswordChange, accountLogout, buildUpdateReview, processUpdateReview }
+async function processDeleteReview(req, res, next) {
+    const { id } = req.params
+    const deleteResult = await reviewModel.deleteReview(id)
+    if (deleteResult) {
+        req.flash("notice", "Review deleted successfully.")
+        res.redirect("/account/")
+    } else {
+        req.flash("notice", "Failed to delete review.")
+        res.redirect("/account/")
+    }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildLoggedIn, buildAccountUpdate, processAccountUpdate, processPasswordChange, accountLogout, buildUpdateReview, processUpdateReview, processDeleteReview }

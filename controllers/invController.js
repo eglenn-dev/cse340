@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const reviewModel = require("../models/review-model");
 const utilities = require("../utilities/");
 
 const invCont = {};
@@ -22,7 +23,6 @@ invCont.buildByInvId = async function (req, res, next) {
     const detailHTML = await utilities.buildInventoryDetail(data);
     let nav = await utilities.getNav();
     const reviewsList = await utilities.buildReviewList(invId);
-    console.log(reviewsList);
     try {
         res.render("./inventory/detail", {
             title: `${data.inv_make} ${data.inv_model}`,
@@ -243,7 +243,7 @@ invCont.addReview = async function (req, res, next) {
 
     const { review_rating, review_text, inv_id, account_id } = req.body;
 
-    const createResult = await invModel.insertReview(review_rating, review_text, inv_id, account_id);
+    const createResult = await reviewModel.insertReview(review_rating, review_text, inv_id, account_id);
 
     if (createResult) {
         req.flash("notice", "Review added successfully.");

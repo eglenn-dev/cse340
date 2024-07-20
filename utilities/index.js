@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model");
 const accountModel = require("../models/account-model");
+const reviewModel = require("../models/review-model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const Util = {};
@@ -103,7 +104,7 @@ Util.buildInventoryDetail = async function (vehicle) {
 Util.buildReviewList = async function (invId) {
     try {
         let reviewList = `<ul id="reviews">`;
-        const data = await invModel.getReviewsByInventoryId(invId);
+        const data = await reviewModel.getReviewsByInventoryId(invId);
         const reviews = await Promise.all(data.reverse().map(async review => {
             const { account_firstname, account_lastname } = await accountModel.getAccountById(review.account_id);
             return `<li>
@@ -125,7 +126,7 @@ Util.buildReviewList = async function (invId) {
 Util.buildUserReviewList = async function (account_id) {
     try {
         let reviewList = `<ul id="reviews">`;
-        const data = await accountModel.getUserReviews(account_id);
+        const data = await reviewModel.getUserReviews(account_id);
         const reviews = await Promise.all(data.reverse().map(async review => {
             return `
                 <li>

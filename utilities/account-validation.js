@@ -1,6 +1,7 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const accountModel = require("../models/account-model")
+const reviewModel = require("../models/review-model")
 const validate = {}
 
 /*  **********************************
@@ -172,7 +173,7 @@ validate.checkPasswordUpdateData = async (req, res, next) => {
 validate.checkUserUpdatePermissions = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const review = await accountModel.getReviewById(id);
+        const review = await reviewModel.getReviewById(id);
         if (!review) {
             req.flash("notice", "Review not found.");
             res.redirect("/account/");
@@ -192,8 +193,8 @@ validate.checkUserUpdatePermissions = async (req, res, next) => {
 
 validate.checkUserReviewUpdate = async (req, res, next) => {
     try {
-        const { review_id, review_text, review_rating } = req.body;
-        const review = await accountModel.getReviewById(review_id);
+        const { review_id } = req.body;
+        const review = await reviewModel.getReviewById(review_id);
         if (!review) {
             req.flash("notice", "Review not found.");
             res.redirect("/account/");
