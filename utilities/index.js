@@ -106,7 +106,7 @@ Util.buildReviewList = async function (invId) {
         const data = await reviewModel.getReviewsByInventoryId(invId);
         const reviews = await Promise.all(data.reverse().map(async review => {
             const { account_firstname, account_lastname } = await accountModel.getAccountById(review.account_id);
-            return `<li>
+            return `<li class="detail-review-item">
                         <div>"${review.review_text}"</div>
                         <div><strong>Rating:</strong> ${review.review_rating}/5</div>
                         <div><strong>Posted by:</strong> ${account_firstname[0]}${account_lastname}</div>

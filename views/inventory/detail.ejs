@@ -6,12 +6,13 @@
                     <div class="review-columns">
                         <div>
                             <h4>Leave a Review</h4>
-                            <form id="reviewForm" action="/inv/detail/<%- invId %>" method="POST" class="review-form">
+                            <form id="reviewForm" action="/inv/detail/<%- invId %>" method="POST"
+                                class="detail-review-form">
                                 <label for="review_text">
                                     Review Text:
                                     <textarea required name="review_text" id="review_text"></textarea>
                                 </label>
-                                <label for="review_rating">
+                                <label class="detail-review-form-other" for="review_rating">
                                     Rating Out of 5:
                                     <select required name="review_rating" id="review_rating">
                                         <option value="">Select One</option>
@@ -22,14 +23,15 @@
                                         <option value="5">5</option>
                                     </select>
                                 </label>
-                                <label for="name">
+                                <label class="detail-review-form-other" for="name">
                                     Screen Name:
                                     <input type="text" name="name" id="name" readonly
                                         value="<%= `${locals.accountData.account_firstname[0]}${locals.accountData.account_lastname}` %>">
                                 </label>
                                 <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
                                 <input type="hidden" name="inv_id" value="<%- invId %>">
-                                <button type="submit">Submit Review</button>
+                                <button class="form-submission-button" style="max-width: fit-content; margin: 0 auto;"
+                                    type="submit">Submit Review</button>
                             </form>
                         </div>
                         <div>

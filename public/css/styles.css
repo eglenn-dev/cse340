@@ -506,13 +506,50 @@ input:required:valid {
   width: 100%;
 }
 
-.review-columns h3 {
+.review-columns h4 {
   text-align: center;
 }
 
-.review-form {
+.detail-review-form {
   display: flex;
   flex-direction: column;
+  gap: 1em;
+}
+
+.detail-review-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-review-form textarea {
+  width: 100%;
+  height: 75px;
+  border-radius: 15px;
+  padding: 1em;
+}
+
+.detail-review-form select {
+  width: 125px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.detail-review-form input {
+  width: fit-content;
+  border-radius: 15px;
+  border: 1px solid black;
+  padding: 6px 10px;
+}
+
+.detail-review-form .detail-review-form-other {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.detail-review-item {
+  font-weight: 400;
 }
 
 .update-review-form {
@@ -541,7 +578,8 @@ input:required:valid {
   border-radius: 20px;
 }
 
-.update-review-form button {
+.update-review-form button,
+.form-submission-button {
   margin: 1em;
   padding: 1em;
   border-radius: 20px;
@@ -550,7 +588,8 @@ input:required:valid {
   transition: all 0.2s ease-in-out;
 }
 
-.update-review-form button:hover {
+.update-review-form button:hover,
+.form-submission-button:hover {
   background-color: #3560bd;
   color: white;
 }
