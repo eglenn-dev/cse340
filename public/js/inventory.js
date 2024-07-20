@@ -21,13 +21,13 @@ classificationList.addEventListener("change", function () {
 function buildInventoryList(data) {
     let inventoryDisplay = document.getElementById("inventoryDisplay");
     let dataTable = '<thead>';
-    dataTable += '<tr><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+    dataTable += '<tr><th>Vehicle Name</th><td>Modify</td><td>Delete</td></tr>';
     dataTable += '</thead>';
     dataTable += '<tbody>';
     data.forEach(function (element) {
         dataTable += `<tr><td>${element.inv_make} ${element.inv_model}</td>`;
-        dataTable += `<td><a href='/inv/edit/${element.inv_id}' title='Click to update'>Modify</a></td>`;
-        dataTable += `<td><a href='/inv/delete/${element.inv_id}' title='Click to delete'>Delete</a></td></tr>`;
+        dataTable += `<td><a class="crud-button" href='/inv/edit/${element.inv_id}' title='Click to update'>Modify</a></td>`;
+        dataTable += `<td><a class="crud-button" href='/inv/delete/${element.inv_id}' title='Click to delete'>Delete</a></td></tr>`;
     })
     dataTable += '</tbody>';
     inventoryDisplay.innerHTML = dataTable;
