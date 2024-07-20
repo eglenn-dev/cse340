@@ -96,12 +96,27 @@ nav ul {
   list-style-type: none;
 }
 
+nav ul li {
+  padding: 0.25em;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+nav ul li:hover {
+  background-color: #3560bd;
+}
+
 nav ul li a {
   text-decoration: none;
   color: white;
   margin: 1em;
   padding: 1em;
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: white;
 }
 
 @media only screen and (max-width: 700px) {
@@ -505,4 +520,78 @@ input:required:valid {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+footer {
+  margin-top: 1em;
+  border-top: 2px solid rgb(112, 112, 112);
+  text-align: center;
+}
+
+.classification-grid {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.classification-grid li {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px rgb(181, 181, 181) solid;
+  padding-bottom: 2em;
+}
+
+.classification-grid li a {
+  text-decoration: underline;
+  color: rgb(1, 7, 57);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.classification-grid li a:hover {
+  color: rgb(152, 152, 156);
+}
+
+.classification-grid li img {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.namePrice {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.user-review-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  max-width: 80%;
+  padding: 1em;
+  border: 2px solid rgb(178, 178, 178);
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.crud-buttons {
+  margin: 5px 0;
+}
+
+.crud-button {
+  background-color: darkgrey;
+  color: white;
+  padding: 4px 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.crud-button:hover {
+  background-color: #dedede;
+  color: black;
 }

@@ -2,7 +2,7 @@ const pool = require("../database/");
 
 async function getUserReviews(account_id) {
     try {
-        const sql = "SELECT review_id, review_text, review_rating FROM reviews WHERE account_id = $1"
+        const sql = "SELECT review_id, review_text, review_rating, inv_id FROM reviews WHERE account_id = $1"
         const result = await pool.query(sql, [account_id])
         return result.rows
     } catch (error) {

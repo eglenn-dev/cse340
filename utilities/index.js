@@ -42,7 +42,7 @@ Util.getNav = async function (req, res, next) {
 Util.buildClassificationGrid = async function (data) {
     let grid;
     if (data.length > 0) {
-        grid = '<ul id="inv-display">'
+        grid = '<ul id="inv-display" class="classification-grid">'
         data.forEach(vehicle => {
             grid += '<li>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id
@@ -51,7 +51,6 @@ Util.buildClassificationGrid = async function (data) {
                 + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
                 + ' on CSE Motors" /></a>'
             grid += '<div class="namePrice">'
-            grid += '<hr />'
             grid += '<h2>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
                 + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
@@ -80,8 +79,8 @@ Util.buildInventoryDetail = async function (vehicle) {
         detailHTML += `<div>`
         detailHTML += `<strong>Details:</strong>`
         detailHTML += `<ul>`;
-        detailHTML += `<li><strong>Make:</string>${vehicle.inv_make}</li>`;
-        detailHTML += `<li><strong>Model:</string>${vehicle.inv_model}</li>`;
+        detailHTML += `<li><strong>Make:</string> ${vehicle.inv_make}</li>`;
+        detailHTML += `<li><strong>Model:</string> ${vehicle.inv_model}</li>`;
         detailHTML += `<li><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</li>`;
         detailHTML += `<li><strong>Color:</strong> ${vehicle.inv_color}</li>`;
         detailHTML += `<li><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</li>`;
@@ -116,7 +115,11 @@ Util.buildReviewList = async function (invId) {
 
         reviewList += reviews.join('');
         reviewList += `</ul>`;
-        return reviewList;
+        if (reviews.length === 0) {
+            return (`<p class="notice">There are no reviews for this vehicle yet.</p>`);
+        } else {
+            return reviewList;
+        }
     } catch (e) {
         console.error("buildReviewList error " + e);
         return (`<p class="notice">There are no reviews for this vehicle yet.</p>`);
@@ -128,17 +131,28 @@ Util.buildUserReviewList = async function (account_id) {
         let reviewList = `<ul id="reviews">`;
         const data = await reviewModel.getUserReviews(account_id);
         const reviews = await Promise.all(data.reverse().map(async review => {
+            console.log(review);
+            const invDetails = await invModel.getInventoryById(review.inv_id);
             return `
-                <li>
-                    <div>"${review.review_text}"</div>
-                    <div><strong>Rating:</strong> ${review.review_rating}/5</div>
-                    <div><a href="/account/update-review/${review.review_id}">Update Review</a> | <a href="/account/delete-review/${review.review_id}">Delete Review</a></div>
-                    </li>`;
+                <li class="user-review-item">
+                    <div>
+                        <div><strong>Review For:</strong> ${invDetails.inv_make} ${invDetails.inv_model}</div>
+                        <div>"${review.review_text}"</div>
+                    </div>
+                    <div>
+                        <div><strong>Rating:</strong> ${review.review_rating}/5</div>
+                        <div class="crud-buttons"><a class="crud-button" href="/account/update-review/${review.review_id}">Update Review</a>  <a class="crud-button" href="/account/delete-review/${review.review_id}">Delete Review</a></div>
+                    </div>
+                </li>`;
         }));
 
         reviewList += reviews.join('');
         reviewList += `</ul>`;
-        return reviewList;
+        if (reviews.length === 0) {
+            return (`<p class="notice">You have not written any reviews yet.</p>`);
+        } else {
+            return reviewList;
+        }
     } catch (e) {
         console.log("buildUserReviewList error " + e);
         return (`<p class="notice">You have not written any reviews yet.</p>`);
