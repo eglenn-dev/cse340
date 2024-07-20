@@ -520,6 +520,47 @@ input:required:valid {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-weight: 600;
+}
+
+.update-review-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-review-form textarea {
+  width: 400px;
+  height: 200px;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.update-review-form select {
+  width: 100px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.update-review-form button {
+  margin: 1em;
+  padding: 1em;
+  border-radius: 20px;
+  font-weight: 600;
+  border: 1px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+.update-review-form button:hover {
+  background-color: #3560bd;
+  color: white;
+}
+
+.user-review-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 225px;
+  max-height: 100px;
 }
 
 footer {

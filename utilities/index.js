@@ -136,7 +136,7 @@ Util.buildUserReviewList = async function (account_id) {
                 <li class="user-review-item">
                     <div>
                         <div><strong>Review For:</strong> ${invDetails.inv_make} ${invDetails.inv_model}</div>
-                        <div>"${review.review_text}"</div>
+                        <div class="user-review-text">"${review.review_text}"</div>
                     </div>
                     <div>
                         <div><strong>Rating:</strong> ${review.review_rating}/5</div>
