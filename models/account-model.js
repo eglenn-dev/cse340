@@ -76,7 +76,26 @@ async function getUserReviews(account_id) {
     } catch (error) {
         return error.message
     }
-
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updatePassword, getUserReviews };
+async function getReviewById(review_id) {
+    try {
+        const sql = "SELECT * FROM reviews WHERE review_id = $1"
+        const result = await pool.query(sql, [review_id])
+        return result.rows[0]
+    } catch (error) {
+        return error.message
+    }
+}
+
+async function updateReview(review_id, review_text, review_rating) {
+    try {
+        const sql = "UPDATE reviews SET review_text = $2, review_rating = $3 WHERE review_id = $1 RETURNING *"
+        const result = await pool.query(sql, [review_id, review_text, review_rating])
+        return result.rows[0]
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updatePassword, getUserReviews, getReviewById, updateReview };

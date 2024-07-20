@@ -5,7 +5,6 @@ const utilities = require("../utilities/index");
 const { validate } = require('../utilities/account-validation');
 
 router.get("/login", accountController.buildLogin, utilities.handleErrors);
-// router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
 router.post("/login", utilities.handleErrors(accountController.accountLogin))
 router.get("/register", accountController.buildRegister, utilities.handleErrors);
 router.post(
@@ -14,6 +13,8 @@ router.post(
     validate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
+router.get('/update-review/:id', validate.checkUserUpdatePermissions, accountController.buildUpdateReview, utilities.handleErrors);
+router.post('/update-review', validate.checkUserReviewUpdate, utilities.handleErrors(accountController.processUpdateReview));
 router.get('/update/:id', accountController.buildAccountUpdate, utilities.handleErrors);
 router.post("/update", validate.updateAccountRules(), validate.checkUpdateData, utilities.handleErrors(accountController.processAccountUpdate));
 router.post("/password", validate.passwordUpdateRules(), validate.checkPasswordUpdateData, utilities.handleErrors(accountController.processPasswordChange));

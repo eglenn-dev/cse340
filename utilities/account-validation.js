@@ -169,4 +169,47 @@ validate.checkPasswordUpdateData = async (req, res, next) => {
     next();
 };
 
+validate.checkUserUpdatePermissions = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const review = await accountModel.getReviewById(id);
+        if (!review) {
+            req.flash("notice", "Review not found.");
+            res.redirect("/account/");
+            return;
+        }
+        if (review.account_id !== res.locals.accountData.account_id) {
+            req.flash("notice", "You do not have permission to update this review.");
+            res.redirect("/account/");
+            return;
+        }
+        next();
+    } catch (e) {
+        console.error(e);
+        res.redirect("/account/");
+    }
+}
+
+validate.checkUserReviewUpdate = async (req, res, next) => {
+    try {
+        const { review_id, review_text, review_rating } = req.body;
+        const review = await accountModel.getReviewById(review_id);
+        if (!review) {
+            req.flash("notice", "Review not found.");
+            res.redirect("/account/");
+            return;
+        }
+        if (review.account_id !== res.locals.accountData.account_id) {
+            req.flash("notice", "You do not have permission to update this review.");
+            res.redirect("/account/");
+            return;
+        }
+        next();
+    } catch (e) {
+        console.error(e);
+        req.flash("notice", "Failed to update review.");
+        res.redirect("/account/");
+    }
+}
+
 module.exports = { validate };

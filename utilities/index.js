@@ -131,7 +131,7 @@ Util.buildUserReviewList = async function (account_id) {
                 <li>
                     <div>"${review.review_text}"</div>
                     <div><strong>Rating:</strong> ${review.review_rating}/5</div>
-                    <div><a href="/account/update-review/${review.review_id}">Update Review</a></div>
+                    <div><a href="/account/update-review/${review.review_id}">Update Review</a> | <a href="/account/delete-review/${review.review_id}">Delete Review</a></div>
                     </li>`;
         }));
 

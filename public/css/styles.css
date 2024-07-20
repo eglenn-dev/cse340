@@ -499,3 +499,10 @@ input:required:valid {
   display: flex;
   flex-direction: column;
 }
+
+.update-review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

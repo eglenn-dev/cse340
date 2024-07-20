@@ -1,0 +1,27 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <% messages() %>
+            <div>
+                <h2>Review For <%- vehicleName %></h2>
+                <form class="update-review-form" action="/account/update-review" method="POST">
+                    <label for="review_text">
+                        Review Text:
+                        <textarea name="review_text" id="review_text"><%- reviewData.review_text %></textarea>
+                    </label>
+                    <label for="review_rating">
+                        Review Rating:
+                        <select name="review_rating" id="review_rating">
+                            <option value="1" <% if(reviewData.review_rating=='1' ) { %>selected<% } %>>1</option>
+                            <option value="2" <% if(reviewData.review_rating=='2' ) { %>selected<% } %>>2</option>
+                            <option value="3" <% if(reviewData.review_rating=='3' ) { %>selected<% } %>>3</option>
+                            <option value="4" <% if(reviewData.review_rating=='4' ) { %>selected<% } %>>4</option>
+                            <option value="5" <% if(reviewData.review_rating=='5' ) { %>selected<% } %>>5</option>
+                        </select>
+                    </label>
+                    <input type="hidden" name="review_id" value="<%- reviewData.review_id %>">
+                    <button type="submit">Update Review</button>
+                </form>
+            </div>
