@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
+const reviewController = require("../controllers/reviewController");
 const utilities = require("../utilities/index");
 const { validate } = require("../utilities/inv-validation");
 
@@ -8,7 +9,7 @@ const { validate } = require("../utilities/inv-validation");
 router.get("/detail/:invId", invController.buildByInvId);
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
-router.post("/detail/:invId", utilities.checkLogin, utilities.handleErrors(invController.addReview));
+router.post("/detail/:invId", utilities.checkLogin, utilities.handleErrors(reviewController.addReview));
 
 router.get("/getInventory/:classification_id", utilities.checkAccountType, utilities.handleErrors(invController.getInventoryJSON))
 router.get("/add-classification", utilities.checkAccountType, invController.buildAddClassificationView);

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const accountController = require("../controllers/accountController");
+const reviewController = require("../controllers/reviewController");
 const utilities = require("../utilities/index");
 const { validate } = require('../utilities/account-validation');
 
@@ -13,9 +14,9 @@ router.post(
     validate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
-router.get('/update-review/:id', validate.checkUserUpdatePermissions, accountController.buildUpdateReview, utilities.handleErrors);
-router.get('/delete-review/:id', validate.checkUserUpdatePermissions, utilities.handleErrors(accountController.processDeleteReview));
-router.post('/update-review', validate.checkUserReviewUpdate, utilities.handleErrors(accountController.processUpdateReview));
+router.get('/update-review/:id', validate.checkUserUpdatePermissions, reviewController.buildUpdateReview, utilities.handleErrors);
+router.get('/delete-review/:id', validate.checkUserUpdatePermissions, utilities.handleErrors(reviewController.processDeleteReview));
+router.post('/update-review', validate.checkUserReviewUpdate, utilities.handleErrors(reviewController.processUpdateReview));
 router.get('/update/:id', accountController.buildAccountUpdate, utilities.handleErrors);
 router.post("/update", validate.updateAccountRules(), validate.checkUpdateData, utilities.handleErrors(accountController.processAccountUpdate));
 router.post("/password", validate.passwordUpdateRules(), validate.checkPasswordUpdateData, utilities.handleErrors(accountController.processPasswordChange));
