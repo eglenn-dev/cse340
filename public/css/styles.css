@@ -373,19 +373,6 @@ nav ul li a:hover {
   max-width: 300px;
 }
 
-input:required:invalid,
-input:focus:invalid {
-  background-image: url('/images/invalid.png');
-  background-position: right top;
-  background-repeat: no-repeat;
-}
-
-input:required:valid {
-  background-image: url('/images/valid.png');
-  background-position: right top;
-  background-repeat: no-repeat;
-}
-
 @media screen and (max-width: 700px) {
   .saleGrid {
     grid-template-columns: 1fr;
@@ -415,6 +402,11 @@ input:required:valid {
   display: flex;
   flex-direction: row;
   gap: 1em;
+}
+
+.management p {
+  margin: 0 2em;
+  text-align: center;
 }
 
 .management-options a {
@@ -452,6 +444,7 @@ input:required:valid {
   width: 200px;
   padding: 0.5em;
   border-radius: 10px;
+  border: 1px solid black;
 }
 
 .add-class-form button {
@@ -470,8 +463,10 @@ input:required:valid {
 }
 
 #vehicleDescription {
-  width: 300px;
+  width: 325px;
   height: 150px;
+  border-radius: 15px;
+  padding: 0.5em;
 }
 
 .update-area {
@@ -711,16 +706,19 @@ footer {
 
 .crud-button:hover {
   background-color: #3e8e41;
+  color: white;
 }
 
 a.crud-button {
   color: white;
-  /* Ensure link text is white */
+}
+
+a.crud-button[href*="/detail/"]:hover {
+  background-color: #1d41b8;
 }
 
 a.crud-button[href*="/delete/"] {
   background-color: #f44336;
-  /* Red for delete */
 }
 
 a.crud-button[href*="/delete/"]:hover {
