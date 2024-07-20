@@ -61,7 +61,6 @@ async function processAccountUpdate(req, res, next) {
 
     if (updateResult) {
         req.flash("notice", "Account updated successfully.")
-        console.log(updateResult);
         res.locals.accountData = updateResult;
         delete updateResult.account_password
         const accessToken = jwt.sign(updateResult, process.env.ACCESS_TOKEN_SECRET, {
@@ -83,8 +82,6 @@ async function accountLogout(req, res, next) {
 
 async function processPasswordChange(req, res, next) {
     const { current_password, new_password, account_id } = req.body
-    console.log(account_id);
-
     const accountData = await accountModel.getAccountById(account_id)
     if (!accountData) {
         req.flash("notice", "Account not found.")

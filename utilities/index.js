@@ -131,7 +131,6 @@ Util.buildUserReviewList = async function (account_id) {
         let reviewList = `<ul id="reviews">`;
         const data = await reviewModel.getUserReviews(account_id);
         const reviews = await Promise.all(data.reverse().map(async review => {
-            console.log(review);
             const invDetails = await invModel.getInventoryById(review.inv_id);
             return `
                 <li class="user-review-item">
@@ -154,7 +153,7 @@ Util.buildUserReviewList = async function (account_id) {
             return reviewList;
         }
     } catch (e) {
-        console.log("buildUserReviewList error " + e);
+        console.error("buildUserReviewList error " + e);
         return (`<p class="notice">You have not written any reviews yet.</p>`);
     }
 }
