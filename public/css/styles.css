@@ -717,7 +717,8 @@ a.crud-button[href*="/detail/"]:hover {
   background-color: #1d41b8;
 }
 
-a.crud-button[href*="/delete/"] {
+a.crud-button[href*="/delete/"],
+a.crud-button[href*="/delete-review/"] {
   background-color: #f44336;
 }
 
