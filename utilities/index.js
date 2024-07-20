@@ -90,6 +90,7 @@ Util.buildInventoryDetail = async function (vehicle) {
         detailHTML += `</div>`
         detailHTML += `</div>`
         detailHTML += `</div>`;
+        detailHTML += `<h3>Reviews of ${vehicle.inv_make} ${vehicle.inv_model}</h3>`;
         return detailHTML;
     } catch (error) {
         console.error("buildInventoryDetail error " + error);
@@ -103,7 +104,7 @@ Util.buildReviewList = async function (invId) {
     try {
         let reviewList = `<ul id="reviews">`;
         const data = await invModel.getReviewsByInventoryId(invId);
-        const reviews = await Promise.all(data.map(async review => {
+        const reviews = await Promise.all(data.reverse().map(async review => {
             const { account_firstname, account_lastname } = await accountModel.getAccountById(review.account_id);
             return `<li>
                         <div>${review.review_text}</div>

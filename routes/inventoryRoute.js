@@ -8,6 +8,7 @@ const { validate } = require("../utilities/inv-validation");
 router.get("/detail/:invId", invController.buildByInvId);
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
+router.post("/detail/:invId", utilities.checkLogin, utilities.handleErrors(invController.addReview));
 
 router.get("/getInventory/:classification_id", utilities.checkAccountType, utilities.handleErrors(invController.getInventoryJSON))
 router.get("/add-classification", utilities.checkAccountType, invController.buildAddClassificationView);

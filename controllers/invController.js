@@ -239,4 +239,20 @@ invCont.deleteInventoryItem = async function (req, res, next) {
     }
 }
 
+invCont.addReview = async function (req, res, next) {
+
+    const { review_rating, review_text, inv_id, account_id } = req.body;
+
+    const createResult = await invModel.insertReview(review_rating, review_text, inv_id, account_id);
+
+    if (createResult) {
+        req.flash("notice", "Review added successfully.");
+        res.status(201).redirect(`/inv/detail/${inv_id}`);
+    } else {
+        req.flash("notice", "Sorry, there was an error adding the review.");
+        res.status(500).redirect(`/inv/detail/${inv_id}`);
+    }
+
+}
+
 module.exports = invCont;

@@ -121,4 +121,15 @@ async function getReviewsByInventoryId(inv_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertIntoInventory, updateInventory, deleteInventoryById, getReviewsByInventoryId };
+async function insertReview(review_rating, review_text, inv_id, account_id) {
+    try {
+        const sql = "INSERT INTO public.reviews (review_rating, review_text, inv_id, account_id) VALUES ($1, $2, $3, $4) RETURNING *";
+        const data = await pool.query(sql, [review_rating, review_text, inv_id, account_id]);
+        return data.rows[0];
+    } catch (error) {
+        console.error("insertReview error " + error);
+    }
+
+}
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertIntoInventory, updateInventory, deleteInventoryById, getReviewsByInventoryId, insertReview };
