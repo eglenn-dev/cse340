@@ -107,7 +107,7 @@ Util.buildReviewList = async function (invId) {
         const reviews = await Promise.all(data.reverse().map(async review => {
             const { account_firstname, account_lastname } = await accountModel.getAccountById(review.account_id);
             return `<li>
-                        <div>${review.review_text}</div>
+                        <div>"${review.review_text}"</div>
                         <div><strong>Rating:</strong> ${review.review_rating}/5</div>
                         <div><strong>Posted by:</strong> ${account_firstname[0]}${account_lastname}</div>
                     </li>`;
@@ -119,6 +119,28 @@ Util.buildReviewList = async function (invId) {
     } catch (e) {
         console.error("buildReviewList error " + e);
         return (`<p class="notice">There are no reviews for this vehicle yet.</p>`);
+    }
+}
+
+Util.buildUserReviewList = async function (account_id) {
+    try {
+        let reviewList = `<ul id="reviews">`;
+        const data = await accountModel.getUserReviews(account_id);
+        const reviews = await Promise.all(data.reverse().map(async review => {
+            return `
+                <li>
+                    <div>"${review.review_text}"</div>
+                    <div><strong>Rating:</strong> ${review.review_rating}/5</div>
+                    <div><a href="/account/update-review/${review.review_id}">Update Review</a></div>
+                    </li>`;
+        }));
+
+        reviewList += reviews.join('');
+        reviewList += `</ul>`;
+        return reviewList;
+    } catch (e) {
+        console.log("buildUserReviewList error " + e);
+        return (`<p class="notice">You have not written any reviews yet.</p>`);
     }
 }
 

@@ -29,9 +29,12 @@ async function buildRegister(req, res, next) {
 
 async function buildLoggedIn(req, res, next) {
     let nav = await utilities.getNav()
+    const accountID = res.locals.accountData.account_id;
+    const reviewsHTML = await utilities.buildUserReviewList(accountID);
     res.render("account/index", {
         title: "Account",
         nav,
+        reviewsHTML,
     })
 }
 
