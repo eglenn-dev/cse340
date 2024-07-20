@@ -109,7 +109,7 @@ Util.buildReviewList = async function (invId) {
             return `<li>
                         <div>${review.review_text}</div>
                         <div><strong>Rating:</strong> ${review.review_rating}/5</div>
-                        <div><strong>Posted by:</strong> ${account_firstname} ${account_lastname}</div>
+                        <div><strong>Posted by:</strong> ${account_firstname[0]}${account_lastname}</div>
                     </li>`;
         }));
 

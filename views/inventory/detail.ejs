@@ -22,13 +22,18 @@
                                         <option value="5">5</option>
                                     </select>
                                 </label>
+                                <label for="name">
+                                    Screen Name:
+                                    <input type="text" name="name" id="name" readonly
+                                        value="<%= `${locals.accountData.account_firstname[0]}${locals.accountData.account_lastname}` %>">
+                                </label>
                                 <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
                                 <input type="hidden" name="inv_id" value="<%- invId %>">
                                 <button type="submit">Submit Review</button>
                             </form>
                         </div>
                         <div>
-                            <h4>Reviews from Other People</h4>
+                            <h4>Reviews</h4>
                             <div>
                                 <%- reviewsList %>
                             </div>
@@ -37,5 +42,6 @@
                     <% } else { %>
                         <div>
                             <%- reviewsList %>
+                                <div><i><a href="/account/login">Log in</a> to write a review.</i></div>
                         </div>
                         <% } %>
