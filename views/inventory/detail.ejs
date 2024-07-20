@@ -1,4 +1,45 @@
 <% if (title) { %>
     <% } else { res.redirect('/') } %>
-        <%# messages() %>
+        <% messages() %>
             <%- detailHTML %>
+
+                <% if (locals.loggedin) { %>
+                    <div class="review-columns">
+                        <div>
+                            <h3>Leave a Review</h3>
+                            <form class="review-form">
+                                <label for="review_text">
+                                    Review Text:
+                                    <textarea name="review_text" id="review_text"></textarea>
+                                </label>
+                                <label for="review_rating">
+                                    Rating Out of 5:
+                                    <select name="review_rating" id="review_rating">
+                                        <option value="">Select One</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </label>
+                                <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
+                                <input type="hidden" name="inv_id" value="<%- invId %>">
+                                <button type="submit">Submit Review</button>
+                            </form>
+                        </div>
+                        <div>
+                            <h3>Reviews from Other People</h3>
+                            <div>
+                                <%- reviewsList %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div>
+                            <h3>Customer Reviews</h3>
+                            <div>
+                                <%- reviewsList %>
+                            </div>
+                        </div>
+                        <% } %>

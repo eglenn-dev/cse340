@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const accountModel = require("../models/account-model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const Util = {};
@@ -95,6 +96,28 @@ Util.buildInventoryDetail = async function (vehicle) {
         return (`
             <p class="notice">Sorry, no matching vehicles could be found.</p>    
         `);
+    }
+}
+
+Util.buildReviewList = async function (invId) {
+    try {
+        let reviewList = `<ul id="reviews">`;
+        const data = await invModel.getReviewsByInventoryId(invId);
+        const reviews = await Promise.all(data.map(async review => {
+            const { account_firstname, account_lastname } = await accountModel.getAccountById(review.account_id);
+            return `<li>
+                        <div>${review.review_text}</div>
+                        <div><strong>Rating:</strong> ${review.review_rating}/5</div>
+                        <div><strong>Posted by:</strong> ${account_firstname} ${account_lastname}</div>
+                    </li>`;
+        }));
+
+        reviewList += reviews.join('');
+        reviewList += `</ul>`;
+        return reviewList;
+    } catch (e) {
+        console.error("buildReviewList error " + e);
+        return (`<p class="notice">There are no reviews for this vehicle yet.</p>`);
     }
 }
 

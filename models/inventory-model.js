@@ -106,4 +106,19 @@ async function deleteInventoryById(inv_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertIntoInventory, updateInventory, deleteInventoryById };
+async function getReviewsByInventoryId(inv_id) {
+    try {
+        const data = await pool.query(
+            `
+                SELECT * FROM public.reviews
+                WHERE inv_id = $1
+            `,
+            [inv_id]
+        );
+        return data.rows;
+    } catch (error) {
+        console.error("getReviewsByInventoryId error " + error);
+    }
+}
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertIntoInventory, updateInventory, deleteInventoryById, getReviewsByInventoryId };

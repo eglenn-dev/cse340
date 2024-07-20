@@ -481,3 +481,21 @@ input:required:valid {
 .submit-button {
   cursor: pointer;
 }
+
+/* Review Stuff */
+
+.review-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  width: 100%;
+}
+
+.review-columns h3 {
+  text-align: center;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+}

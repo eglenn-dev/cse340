@@ -21,11 +21,15 @@ invCont.buildByInvId = async function (req, res, next) {
     const data = await invModel.getInventoryById(invId);
     const detailHTML = await utilities.buildInventoryDetail(data);
     let nav = await utilities.getNav();
+    const reviewsList = await utilities.buildReviewList(invId);
+    console.log(reviewsList);
     try {
         res.render("./inventory/detail", {
             title: `${data.inv_make} ${data.inv_model}`,
             nav,
             detailHTML,
+            invId: req.params.invId,
+            reviewsList,
         });
     } catch (error) {
         console.error(`Error at: "${req.originalUrl}" - Status: 404 - Message: ${error.message}`);
